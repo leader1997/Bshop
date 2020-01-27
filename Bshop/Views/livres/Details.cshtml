@@ -1,0 +1,123 @@
+﻿@model Bshop.Models.livre
+@using Bshop.Models;
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+
+        <hr>
+
+
+        <div class="card">
+            <div class="row">
+                <aside class="col-sm-5 border-right">
+                    <article class="gallery-wrap">
+                        <div class="img-big-wrap">
+                            <div>
+                                @{ string base6 = Convert.ToBase64String(Model.image);
+                                    string sr = String.Format("data:image/png;base64,{0}", base6);
+                                }
+                                <img src="@sr" style="height:80%;width:80%;" alt="" class="img-fluid" />
+                            </div>
+                        </div> <!-- slider-product.// -->
+                        
+                    </article> <!-- gallery-wrap .end// -->
+                </aside>
+                <aside class="col-sm-7">
+                    <article class="card-body p-5">
+                        <h3 class="title mb-3">@Html.DisplayFor(model => model.titre)</h3>
+
+                        <p class="price-detail-wrap">
+                            <span class="price h3 text-warning">
+                                <span class="num">@Html.DisplayFor(model => model.prix)</span><span class="currency"> DH</span>
+                            </span>
+
+                        </p> <!-- price-detail-wrap .// -->
+                        <dl class="item-property">
+                            <dt>Description</dt>
+                            <dd>
+                                <p>
+                                    @Html.DisplayFor(model => model.desc)
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl class="param param-feature">
+                            <dt>Auteur</dt>
+                            <dd>@Html.DisplayFor(model => model.auteur)</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <!-- item-property-hor .// -->
+
+                        <hr>
+                        <form action="/home/addpanier" method="get">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <dl class="param param-inline">
+                                        <dt>Quantity: </dt>
+                                        <dd>
+
+                                            <select name="qte" class="form-control form-control-sm" style="width:70px;">
+                                                @{ for (int i = 1; i <= Model.stock || i<2; i++)
+                                                    {
+                                                        <option> @i </option>
+                                                    }}
+
+
+                                            </select>
+
+                                        </dd>
+                                    </dl>  <!-- item-property .// -->
+                                </div> <!-- col.// -->
+
+                            </div> <!-- row.// -->
+                            <hr>
+                         @if (Model.stock>0) {
+                            
+                         if (Session["user"] != null)
+                            {
+
+                                user u = (user)Session["user"];
+                                <input type="hidden" value="@Model.Id" name="idl" />
+                                <input type="hidden" value="@u.Id" name="idc" />
+                                <button type="submit" class="btn btn-lg btn-outline-primary text-uppercase" name="payer"> acheter maintenant</button>
+                                <button type="submit" class="btn btn-lg btn-outline-primary text-uppercase" name="add"> <i class="fas fa-shopping-cart"></i> ajouter au panier</button>
+                            }
+                            else
+                            {
+                                    <a href="#" role="button" data-toggle="modal" data-target="#identifier" class="btn btn-lg btn-primary text-uppercase"> acheter maintenant </a>
+                                    <a href="#" role="button" data-toggle="modal" data-target="#identifier" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> ajouter au panier </a>
+                            }
+                         }
+                         else
+                         {
+                             <button class="btn btn-danger">stock epuisé veuillez revenir utilierement !!</button>
+                         }
+
+</article> <!-- card-body.// -->
+                </aside> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
+
+
+    </div>
+    <!--container.//-->
+
+
+    <br><br><br>
+    <article class="bg-secondary mb-3">
+        <div class="card-body text-center">
+            <h4 class="text-white">HTML UI KIT <br> Ready to use Bootstrap 4 components and templates </h4>
+            <p class="h5 text-white">
+                for Ecommerce, marketplace, booking websites
+                and product landing pages
+            </p>   <br>
+            <p>
+                <a class="btn btn-warning" target="_blank" href="http://bootstrap-ecommerce.com/">
+                    Bootstrap-ecommerce.com
+                    <i class="fa fa-window-restore "></i>
+                </a>
+            </p>
+        </div>
+        <br><br><br>
+    </article>

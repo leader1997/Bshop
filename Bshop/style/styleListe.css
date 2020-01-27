@@ -1,0 +1,14 @@
+table {
+    position: relative;
+  }
+
+  .hover-btn {
+     position: absolute;
+     right: 15px;
+     display: none;
+  }
+
+  tr:hover .hover-btn {
+     display: block;
+  }
+ 

@@ -1,0 +1,65 @@
+﻿
+
+@using Bshop.Models;
+@{
+    ViewBag.Title = "panier";
+
+    List<List<Object>> L = (List<List<Object>>)ViewData["panier"];
+}
+
+<h2>panier</h2>
+@{ double tt = 0;}
+
+@foreach(var l in L)
+{
+    livre l1 = (livre)l[1];
+    panier p1 = (panier)l[0];
+    tt = tt + (double)l1.prix * (int)p1.qte;
+}
+<h2 style="color:darkgreen;text-align:left;">Total à payer : @tt  DH</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">image</th>
+            <th scope="col">titre</th>
+            <th scope="col">quantité</th>
+            <th scope="col">prix d'une unité</th>
+            <th scope="col">prix total</th>
+            <th scope="col">supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            @{ int i = 0;}
+            @foreach (var l in  L)
+            {
+                livre l1 = (livre)l[1];
+                panier p1 = (panier)l[0];
+
+                <tr>
+               @{ i += 1; }
+                <th scope="row">@i</th>
+               @{String base64 = Convert.ToBase64String(l1.image);
+                   string src = String.Format("data:image/png;base64,{0}", base64);
+               }
+
+                <td><img src="@src" style="height:34px;width:24px;" alt="" class="img-fluid" /></td>
+                <td>@l1.titre</td>
+                <td>@p1.qte</td>
+                <td>@l1.prix</td>
+                <td>@{float prixT = (int)p1.qte * (float)l1.prix;}@prixT</td>
+
+
+
+
+
+                <td scope="col"><a href="/home/deletePanier?id=@p1.Id&idl=@p1.idl&qte=@p1.qte" class="btn btn-danger">supprimer</a></td>
+            </tr>
+            }
+
+
+
+    </tbody>
+
+</table>

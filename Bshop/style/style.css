@@ -1,0 +1,52 @@
+
+#btnjs{
+	background-color: #c8d509;
+	font-weight:bold;
+	color: black;
+	font-size: 90%;
+}
+.container .btn-bd-inscrire {
+    font-weight: 600;
+    color: #fefefe;
+    border-color: rgb(40,167,69);
+}
+.container .btn-bd-inscrire:hover {
+	background-color: #fefefe;
+}
+.container .btn-bd-identifier {
+    font-weight: 600;
+    color: #ffe484;
+    border-color: #ffe484;
+}
+.container .btn-bd-identifier:hover {
+background-color: gold;
+}
+
+.gallery-wrap .img-big-wrap img {
+    height: 450px;
+    width: auto;
+    display: inline-block;
+    cursor: zoom-in;
+}
+
+
+.gallery-wrap .img-small-wrap .item-gallery {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ddd;
+    margin: 7px 2px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.gallery-wrap .img-small-wrap {
+    text-align: center;
+}
+
+    .gallery-wrap .img-small-wrap img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+        cursor: zoom-in;
+    }

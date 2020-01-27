@@ -1,0 +1,190 @@
+﻿@using Bshop.Models    
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <!--<link rel="stylesheet" href="bootstrap/bootrsi-min.css">-->
+    <link rel="stylesheet" href="/style/style.css">
+    <!-- bootstrap link-->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!--icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+</head>
+<body>
+
+
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark sb-navbar">
+            <div class="container">
+                <a class="navbar-brand" href="/home/index">BookMarket</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="input-group" style="margin-left:150px;">
+                    <form action="/home/search" method="post">
+                        <table>
+                            <tr>
+                                <td><input type="text" class="form-control" placeholder="rechercher un livre" name="recherche" style="margin-top:10px;"></td>
+                                <td> <input type="submit" value="search" class="btn btn-primary" style="margin-top:10px;margin-left:5px;"></td>
+                            <tr>
+                        </table>
+
+
+                    </form>
+
+
+                </div>
+                @if (Session["user"] != null)
+                {
+                    user u = (user)Session["user"];
+                    if (u.email == "admin@gmail.com")
+                    {
+                        <a href="/livres/Index" role="button" class="btn btn-bd-inscrire mx-1">gestion livres</a>
+                        <a href="/users/Index" role="button" class="btn btn-bd-inscrire mx-1">gestion utilisateurs</a>
+                        
+                        
+                    }
+                }
+                @if (Session["user"] != null)
+                {
+                    user u = (user)Session["user"];
+            <a href="/home/panier"><img height="50px" width="50" src="/fonts/panier.png" /></a>
+                    <a href="/users/Details/@u.Id" class="btn btn-success" style="margin-top:10px;margin-left:5px;">@u.username</a>
+
+
+                    <a href="/users/disc" class="btn btn-danger" style="margin-top:10px;margin-left:5px;">disconnect</a>
+
+
+                }
+                else
+                {
+                    <a href="#" role="button" data-toggle="modal" data-target="#identifier"><img height="50px" width="50" src="/fonts/panier.png" /></a>
+                    <a href="#" role="button" data-toggle="modal" data-target="#identifier" class="btn btn-bd-inscrire mx-1">S'authentifier</a>
+
+                    <a href="#" role="button" data-toggle="modal" data-target="#inscription" class="btn btn-bd-inscrire mx-1">S'inscrire</a>
+
+
+                }
+            </div>
+		</nav>
+
+
+<!-- Modal s'inscrire -->
+<div class="modal fade" id="inscription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">S'identifier</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form action="/users/Create" method="post" accept-charset="utf-8" class="form" role="form" enctype="multipart/form-data">
+              @Html.AntiForgeryToken()
+              <div class="row">
+                  <div class="col-xs-6 col-md-6">
+                      <input type="text" name="username" value="" class="form-control input-lg" placeholder="username" />
+                  </div>
+                  <div class="col-xs-6 col-md-6">
+                      <input class="bnt btn-primary" type="file" name="image" required />
+                  </div>
+              </div>
+              <br>
+              <input type="text" name="email" value="" class="form-control input-lg" placeholder="Email" />
+              <br>
+              <input type="password" name="pwd" value="" class="form-control input-lg" placeholder="Mot de passe" />
+              <br>
+
+              <input type="text" name="adresse" value="" class="form-control input-lg" placeholder="adresse" />
+              <br>
+              <br>
+
+              <input type="text" name="tel" value="" class="form-control input-lg" placeholder="telephone" />
+              <br>
+              <input type="text" name="cbc" value="" class="form-control input-lg" placeholder="code bancaire" />
+              <br>
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="Créer un compte">
+              </div>
+          </form>
+</div>
+  </div>
+</div>
+</div>
+
+<!-- Panier  -->
+
+
+<!-- modal identifier -->
+
+<!-- Modal S'identifier -->
+<div class="modal fade" id="identifier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">S'identifier</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	      <form action="/users/auth" method="post" accept-charset="utf-8" class="form" role="form">        
+                            <div style="margin-bottom: 5px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input id="login-username" type="text" class="form-control" name="email" value="" placeholder="Email" required>                                        
+                                    </div>      
+                            <div style="margin-bottom: 5px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="login-password" type="password" class="form-control" name="pwd" placeholder="Mot de passe"  required>
+                                    </div>
+                            <!--  <div style="margin-bottom: 5px" class="input-group">-->
+                           
+                            <div class="input-group">
+                                      
+                                    </div>
+                                <div style="margin-top:1px" class="form-group">
+                                    <!-- Button -->
+
+                                    <div class="col-sm-12 controls">
+                                      <input type="submit" id="btn-login" class="btn btn-success" value="se connecter">
+                                    </div>
+                                </div>
+         
+                                <div class="form-group">
+                                    <div class="col-md-12 control">
+                                        <div style="border-top: 1px solid#888; padding-top:5px; font-size:85%" >
+                                            Vous n'avez pas un compte
+                                        <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#inscription">
+                                            S'inscrire
+                                        </a>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </form>
+	  </div> 
+    </div>
+  </div>
+</div>
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
